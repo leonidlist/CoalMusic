@@ -1,0 +1,75 @@
+﻿<Window x:Class="MusicPlayer.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicPlayer"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cal="http://www.caliburnproject.org"
+        mc:Ignorable="d"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        Title="Coal Music" MinHeight="650" MinWidth="400" Height="650" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6.5*"></RowDefinition>
+            <RowDefinition Height="3.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left"
+                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                Width="40" Height="40" Margin="10 10" cal:Message.Attach="OpenTrack">
+            <Button.Content>
+                <material:PackIcon Kind="Add" Width="20" Height="20" />
+            </Button.Content>
+        </Button>
+
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center"
+                   Margin="0 30" FontSize="18" Text="{Binding TrackName}"></TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!-- Region ProgressBar -->
+            <Label Content="{Binding TimeMin}" Margin="15 0"></Label>
+            <Label Content="{Binding TimeMax}" Margin="15 0" HorizontalAlignment="Right"></Label>
+            <Label HorizontalAlignment="Center" Content="{Binding TimeProgress}"></Label>
+            <ProgressBar Margin="20 0" Value="{Binding TimeProgress}"
+                         Minimum="{Binding TimeMin}" Maximum="{Binding TimeMax}"></ProgressBar>
+            <!-- EndRegion -->
+            <!-- Region Tracks Control -->
+            <Button Grid.Row="1" Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    cal:Message.Attach="PlayStopMusic">
+                <Button.Content>
+                    <material:PackIcon Kind="{Binding PlayButtonIcon}" Width="30" Height="30" />
+                </Button.Content>
+            </Button>
+            <!-- EndRegion -->
+            <!-- Region Volume Control -->
+            <Button Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0">
+                <Button.Content>
+                    <material:PackIcon Kind="Shuffle" Width="20" Height="20" />
+                </Button.Content>
+            </Button>
+            <material:PackIcon Kind="VolumeLow" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="55 0" />
+            <Slider Grid.Row="2" VerticalAlignment="Center" Margin="80 0"
+                    Minimum="0" Maximum="100" Value="{Binding Volume}" Height="20"></Slider>
+            <material:PackIcon Kind="VolumeMedium" Grid.Row="3" VerticalAlignment="Center" Margin="55 0"
+                               HorizontalAlignment="Right" />
+            <Button Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Style="{DynamicResource MaterialDesignFlatButton}" Margin="5 0">
+                <Button.Content>
+                    <material:PackIcon Kind="Repeat" Width="20" Height="20" />
+                </Button.Content>
+            </Button>
+            <!-- EndRegion-->
+        </Grid>
+    </Grid>
+</Window>
